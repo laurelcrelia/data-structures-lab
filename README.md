@@ -1,3 +1,9 @@
 # Maze generator
 
 Project for Data Structures Lab course at the University of Helsinki.
+
+### Documentation:
+- [Project specification](https://github.com/laurelcrelia/data-structures-lab/blob/main/documentation/project-specification.md)
+
+### Weekly reports:
+- [Week 1](https://github.com/laurelcrelia/data-structures-lab/blob/main/documentation/weekly_reports/week1.md)
