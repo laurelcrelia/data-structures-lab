@@ -8,6 +8,7 @@ packages = [{include = "data_structures_lab"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+pygame = "^2.3.0"
 
 
 [tool.poetry.group.dev.dependencies]
