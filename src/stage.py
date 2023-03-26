@@ -1,7 +1,5 @@
 import pygame
 
-BLACK = (0, 0, 0)
-
 class Stage():
 
     def __init__(self, screen):
