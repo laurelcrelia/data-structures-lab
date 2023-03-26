@@ -8,7 +8,7 @@ class App:
     def __init__(self):
         """The constructor for this class.
         Args:
-            maze: Maze class defines the structure of the maze and initializes the sprites to the map.
+            maze: Maze class defines the structure of the maze and initializes a grid for maze.
         """
         self.maze = Maze()
 
