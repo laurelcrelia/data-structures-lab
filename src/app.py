@@ -1,8 +1,6 @@
 import pygame
 from ui.menu import Menu
 from ui.maze import Maze
-from ui.buttons.quit import Quit
-from ui.buttons.start import Start
 
 WHITE = (255, 255, 255)
 
