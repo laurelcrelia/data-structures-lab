@@ -1,7 +1,7 @@
 from app import App
 
 def main():
-    App().start()
+    App()
 
 
 if __name__ == "__main__":
