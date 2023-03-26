@@ -7,3 +7,4 @@ Project for Data Structures Lab course at the University of Helsinki.
 
 ### Weekly reports:
 - [Week 1](https://github.com/laurelcrelia/data-structures-lab/blob/main/documentation/weekly_reports/week1.md)
+- [Week 2](https://github.com/laurelcrelia/data-structures-lab/blob/main/documentation/weekly_reports/week2.md)
