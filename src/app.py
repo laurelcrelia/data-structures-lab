@@ -1,38 +1,27 @@
 import pygame
-from maze import Maze
+from ui.menu import Menu
+from ui.maze import Maze
+from ui.buttons.quit import Quit
+from ui.buttons.start import Start
 
+WHITE = (255, 255, 255)
 
-class App:
-    """Class that manages the logic of this application. """
+WIDTH = 440
+HEIGHT = 440
+
+class App():
 
     def __init__(self):
-        """The constructor for this class.
-        Args:
-            maze: Maze class defines the structure of the maze and initializes a grid for maze.
-        """
-        self.maze = Maze()
 
-    def start(self):
-        """Starts the application."""
-        self.initialize()
-
-        running = True
-        
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-            
-            pygame.display.update()
-
-        self.quit()
-
-    def quit(self):
-        """Closes the application."""
-        pygame.quit()
-
-    def initialize(self):
-        """Initializes the window of the application."""
-        pygame.display.set_caption("Maze generator")
         pygame.init()
-        pygame.mixer.init()
+
+        screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
+        Menu(screen).mainloop()
+        Maze(screen).mainloop()
+
+        pygame.quit()
+        
+if __name__ == '__main__':
+
+    App()
