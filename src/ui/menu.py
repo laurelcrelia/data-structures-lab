@@ -7,7 +7,8 @@ class Menu(Stage):
     """This class creates the menu window interface.
 
     Attributes:
-        screen: Attribute which is set up in the App class by pygame.display.set_mode((WIDTH, HEIGHT)) function.
+        screen: Attribute which is set up in the App class by 
+        pygame.display.set_mode((WIDTH, HEIGHT)) function.
     """
 
     def __init__(self, screen):

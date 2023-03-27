@@ -4,14 +4,16 @@ class Quit():
     """This class creates quit button for menu-view.
 
     Attributes:
-        screen: Attribute which is set up in the App class by pygame.display.set_mode((WIDTH, HEIGHT)) function.
+        screen: Attribute which is set up in the App class by 
+        pygame.display.set_mode((WIDTH, HEIGHT)) function.
     """
 
     def __init__(self, screen):
         """The constructor for this class.
         
         Args:
-            text_pos: Button's text position in the width ([0]) and height ([1]) directions of the window.
+            text_pos: Button's text position in the width ([0]) 
+            and height ([1]) directions of the window.
             box: Button's box width ([0]) and height ([1]).
             border:  Button's border width ([0]) and height ([1]),
             screen: Screen variable which is needed with many pygame interface-building functions.
@@ -29,7 +31,7 @@ class Quit():
     def update(self):
         """This method controls the button's color based on mouse movement."""
         mouse = pygame.mouse.get_pos()
-        if self.text_pos[0]-self.border[0] <= mouse[0] <= self.text_pos[0]+(self.box[0]-self.border[0]) and self.text_pos[1]-self.border[1] <= mouse[1] <= self.text_pos[1]+(self.box[1]-self.border[1]):
+        if self.text_pos[0]-self.border[0] <= mouse[0] <= self.text_pos[0]+(self.box[0]-self.border[0]) and (self.text_pos[1]-self.border[1] <= mouse[1] <= self.text_pos[1]+(self.box[1]-self.border[1])):
             pygame.draw.rect(self.screen, (190, 190, 190),
                              [self.text_pos[0]-self.border[0], self.text_pos[1]-self.border[1], self.box[0], self.box[1]])
         else:

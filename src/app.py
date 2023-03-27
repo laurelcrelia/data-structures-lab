@@ -7,6 +7,8 @@ WHITE = (255, 255, 255)
 WIDTH = 440
 HEIGHT = 440
 
+#pylint: disable=no-member
+
 class App():
     """This class controls the app."""
 
@@ -24,6 +26,6 @@ class App():
         Maze(screen).mainloop()
 
         pygame.quit()
-        
+
 if __name__ == '__main__':
     App()

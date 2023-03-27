@@ -7,7 +7,8 @@ class Maze(Stage):
     """This class creates the maze window interface.
 
     Attributes:
-        screen: Attribute which is set up in the App class by pygame.display.set_mode((WIDTH, HEIGHT)) function.
+        screen: Attribute which is set up in the App class by 
+        pygame.display.set_mode((WIDTH, HEIGHT)) function.
     """
 
     def __init__(self, screen):
@@ -19,8 +20,8 @@ class Maze(Stage):
             screen: Screen variable which is needed with many pygame interface-building functions.
             widgets: List that contains widgets that are implemented in this view.
         """
-        self.x = 0
-        self.y = 0
+        self.x_axis = 0
+        self.y_axis = 0
         self.cell_size = 20
         self.grid = []
 
@@ -32,17 +33,20 @@ class Maze(Stage):
     def draw(self):
         """This method draws the maze and possible existing widgets on maze view."""
         for i in range(1,21):
-            self.x = 20
-            self.y = self.y + 20
+            self.x_axis = 20
+            self.y_axis = self.y_axis + 20
             for j in range(1, 21):
-                pygame.draw.line(self.screen, WHITE, [self.x, self.y], [self.x + self.cell_size, self.y])
-                pygame.draw.line(self.screen, WHITE, [self.x + self.cell_size, self.y], 
-                                 [self.x + self.cell_size, self.y + self.cell_size])
-                pygame.draw.line(self.screen, WHITE, [self.x + self.cell_size, self.y + self.cell_size], 
-                                 [self.x, self.y + self.cell_size])
-                pygame.draw.line(self.screen, WHITE, [self.x, self.y + self.cell_size], [self.x, self.y])
-                self.grid.append((self.x,self.y))
-                self.x = self.x + 20 
+                pygame.draw.line(self.screen, WHITE, [self.x_axis, self.y_axis],
+                                 [self.x_axis + self.cell_size, self.y_axis])
+                pygame.draw.line(self.screen, WHITE, [self.x_axis + self.cell_size, self.y_axis],
+                                 [self.x_axis + self.cell_size, self.y_axis + self.cell_size])
+                pygame.draw.line(self.screen, WHITE,
+                                 [self.x_axis + self.cell_size, self.y_axis + self.cell_size],
+                                 [self.x_axis, self.y_axis + self.cell_size])
+                pygame.draw.line(self.screen, WHITE,
+                                 [self.x_axis, self.y_axis + self.cell_size], [self.x_axis, self.y_axis])
+                self.grid.append((self.x_axis,self.y_axis))
+                self.x_axis = self.x_axis + 20
         for widget in self.widgets:
             widget.draw()
 

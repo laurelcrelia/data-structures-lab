@@ -1,10 +1,13 @@
 import pygame
 
+#pylint: disable=no-member
+
 class Stage():
     """This class controls the event chain of the application's different interface stages.
 
     Attributes:
-        screen: Attribute which is set up in the App class by pygame.display.set_mode((WIDTH, HEIGHT)) function.
+        screen: Attribute which is set up in the App class by 
+        pygame.display.set_mode((WIDTH, HEIGHT)) function.
     """
 
     def __init__(self, screen):
@@ -16,7 +19,7 @@ class Stage():
         """
         self.screen = screen
         self.is_running = False
-        
+
     def quit(self):
         pass
 
@@ -25,21 +28,18 @@ class Stage():
         self.is_running = True
 
         while self.is_running:
-            
+
             for event in pygame.event.get():
-                
+
                 if event.type == pygame.QUIT:
                     self.is_running = False
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        self.is_running = False
 
                 if self.handle_event(event) is False:
                     self.is_running = False
 
             self.update()
             self.draw()
-            
+
             pygame.display.update()
 
         self.quit()
