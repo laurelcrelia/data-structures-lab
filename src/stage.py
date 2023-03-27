@@ -1,3 +1,4 @@
+import sys
 import pygame
 
 #pylint: disable=no-member
@@ -43,6 +44,8 @@ class Stage():
 
                 if event.type == pygame.QUIT:
                     self.is_running = False
+                    pygame.quit()
+                    sys.exit()
 
                 if self.handle_event(event) is False:
                     self.is_running = False
