@@ -16,12 +16,22 @@ class Stage():
         Args:
             screen: Screen variable which is needed with many pygame interface-building functions.
             is_running: Boolean variable that determines whether particular stage is running or not.
+            widgets: List that contains widgets that are implemented in a view.
         """
         self.screen = screen
         self.is_running = False
+        self.widgets = []
 
     def quit(self):
         pass
+
+    def draw(self):
+        for widget in self.widgets:
+            widget.draw()
+
+    def update(self):
+        for widget in self.widgets:
+            widget.update()
 
     def mainloop(self):
         """Main loop of the app's event chain."""

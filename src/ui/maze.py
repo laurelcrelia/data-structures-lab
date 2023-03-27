@@ -13,25 +13,22 @@ class Maze(Stage):
 
     def __init__(self, screen):
         Stage.__init__(self, screen)
-        """The constructor for this class. Sets up maze variables and background color.
-        
+        """The constructor for this class. 
+        Sets up maze variables and calls draw_maze() method.
+
         Args:
             grid: List variable that stores grid for later events with maze.
-            screen: Screen variable which is needed with many pygame interface-building functions.
-            widgets: List that contains widgets that are implemented in this view.
         """
         self.x_axis = 0
         self.y_axis = 0
         self.cell_size = 20
         self.grid = []
 
-        screen.fill((0, 0, 0))
-        self.screen = screen
+        self.draw_maze()
 
-        self.widgets = []
-
-    def draw(self):
-        """This method draws the maze and possible existing widgets on maze view."""
+    def draw_maze(self):
+        """This method draws the maze."""
+        self.screen.fill((0, 0, 0))
         for i in range(1,21):
             self.x_axis = 20
             self.y_axis = self.y_axis + 20
@@ -47,8 +44,6 @@ class Maze(Stage):
                                  [self.x_axis, self.y_axis + self.cell_size], [self.x_axis, self.y_axis])
                 self.grid.append((self.x_axis,self.y_axis))
                 self.x_axis = self.x_axis + 20
-        for widget in self.widgets:
-            widget.draw()
 
     def create_objects(self):
         """This method will bring up widgets that are necessary to this view 
@@ -66,7 +61,3 @@ class Maze(Stage):
         """
         for widget in self.widgets:
             widget.handle_event(event)
-
-    def update(self, ):
-        for widget in self.widgets:
-            widget.update()

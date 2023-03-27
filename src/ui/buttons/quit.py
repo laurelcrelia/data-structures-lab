@@ -1,4 +1,5 @@
-import pygame, sys
+import sys
+import pygame
 
 class Quit():
     """This class creates quit button for menu-view.

@@ -14,19 +14,20 @@ class Menu(Stage):
     def __init__(self, screen):
         Stage.__init__(self, screen)
         """The constructor for this class. Sets up necessary variables 
-        and background color in menu view and calls create_objects() method.
+        and background color in menu view and calls draw_menu() and create_objects() method.
         
         Args:
             widgets: List that contains widgets that are implemented in this view.
         """
         self.font = pygame.font.SysFont("Segoe UI", 50)
         self.text = self.font.render("Maze generator", False, (169, 169, 169))
-        screen.fill((0, 0, 0))
-        screen.blit(self.text, (45, 70))
 
-        self.widgets = []
-
+        self.draw_menu()
         self.create_objects()
+
+    def draw_menu(self):
+        self.screen.fill((0, 0, 0))
+        self.screen.blit(self.text, (45, 70))
 
     def create_objects(self):
         """This method will bring up widgets that are necessary 
@@ -52,10 +53,3 @@ class Menu(Stage):
             if widget.handle_event(event) is False:
                 return False
 
-    def update(self, ):
-        for widget in self.widgets:
-            widget.update()
-
-    def draw(self):
-        for widget in self.widgets:
-            widget.draw()
