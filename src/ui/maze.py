@@ -9,41 +9,94 @@ class Maze(Stage):
     Attributes:
         screen: Attribute which is set up in the App class by 
         pygame.display.set_mode((WIDTH, HEIGHT)) function.
+        grid_size: Attribute which is given to this class by 
+        the outcome of Grid class in the App class.
     """
 
-    def __init__(self, screen):
+    def __init__(self, screen, grid_size):
         Stage.__init__(self, screen)
         """The constructor for this class. 
-        Sets up maze variables and calls draw_maze() method.
+        Sets up maze variables and calls draw_view() method.
 
         Args:
-            grid: List variable that stores grid for later events with maze.
+            grid_1: List variable that stores the first grid for later events with maze.
+            grid_2: List variable that stores the second grid for later events with maze.
         """
+        self.grid_size = grid_size
+        self.cell_size = 40/(self.grid_size/5)
+        self.screen_unit = 40
+
         self.x_axis = 0
-        self.y_axis = 0
-        self.cell_size = 20
-        self.grid = []
+        self.y_axis = (3+((self.grid_size/5)*0.25))*self.screen_unit
+        self.grid_1 = []
+        self.grid_2 = []
 
-        self.draw_maze()
+        self.draw_view()
 
-    def draw_maze(self):
-        """This method draws the maze."""
+    def draw_view(self):
+        """This method calls all the necessary methods for constructing maze view."""
+        self.draw_texts()
+        self.draw_maze_1(self.x_axis, self.y_axis)
+        self.draw_maze_2(self.x_axis, self.y_axis)
+
+    def draw_texts(self):
+        """This method sets up background color for this view 
+        and draws maze generating algorithm names for the grids.
+        """
+        self.font = pygame.font.SysFont("Segoe UI", 50)
+        self.text_1 = self.font.render("Kruskal's", False, (169, 169, 169))
+        self.text_2 = self.font.render("DFS", False, (169, 169, 169))
         self.screen.fill((0, 0, 0))
-        for i in range(1,21):
-            self.x_axis = 20
-            self.y_axis = self.y_axis + 20
-            for j in range(1, 21):
-                pygame.draw.line(self.screen, WHITE, [self.x_axis, self.y_axis],
-                                 [self.x_axis + self.cell_size, self.y_axis])
-                pygame.draw.line(self.screen, WHITE, [self.x_axis + self.cell_size, self.y_axis],
-                                 [self.x_axis + self.cell_size, self.y_axis + self.cell_size])
+        self.screen.blit(self.text_1, (2*self.screen_unit, 2*self.screen_unit))
+        self.screen.blit(self.text_2, (640-((5*self.screen_unit)+self.screen_unit), 2*self.screen_unit))
+
+    def draw_maze_1(self, x, y):
+        """This method draws the first grid.
+
+        Args:
+            x: Variable that helps to determine how x-axis lines are drawn to the grid.
+            y: Variable that helps to determine how y-axis lines are drawn to the grid.
+        """
+        for i in range(self.grid_size):
+            x = int(2*self.screen_unit)
+            y = y + self.cell_size
+            for j in range(self.grid_size):
+                pygame.draw.line(self.screen, WHITE, [x, y],
+                                 [x + self.cell_size, y])
+                pygame.draw.line(self.screen, WHITE, [x + self.cell_size, y],
+                                 [x + self.cell_size, y + self.cell_size])
                 pygame.draw.line(self.screen, WHITE,
-                                 [self.x_axis + self.cell_size, self.y_axis + self.cell_size],
-                                 [self.x_axis, self.y_axis + self.cell_size])
+                                 [x + self.cell_size, y + self.cell_size],
+                                 [x, y + self.cell_size])
                 pygame.draw.line(self.screen, WHITE,
-                                 [self.x_axis, self.y_axis + self.cell_size], [self.x_axis, self.y_axis])
-                self.grid.append((self.x_axis,self.y_axis))
-                self.x_axis = self.x_axis + 20
+                                 [x, y + self.cell_size], [x, y])
+                self.grid_1.append((x, y))
+                x = x + self.cell_size
+
+    def draw_maze_2(self, x ,y):
+        """This method draws the second grid.
+
+        Args:
+            x: Variable that helps to determine how x-axis lines are drawn to the grid.
+            y: Variable that helps to determine how y-axis lines are drawn to the grid.
+        """
+        for i in range(self.grid_size):
+            grid = self.grid_size*self.cell_size
+            start_x = int(640-(grid+2*self.screen_unit)) 
+            x =  start_x
+            y = y + self.cell_size
+            for j in range(self.grid_size):
+                pygame.draw.line(self.screen, WHITE, [x, y],
+                                 [x + self.cell_size, y])
+                pygame.draw.line(self.screen, WHITE, [x + self.cell_size, y],
+                                 [x + self.cell_size, y + self.cell_size])
+                pygame.draw.line(self.screen, WHITE,
+                                 [x + self.cell_size, y + self.cell_size],
+                                 [x, y + self.cell_size])
+                pygame.draw.line(self.screen, WHITE,
+                                 [x, y + self.cell_size], [x, y])
+                self.grid_2.append((x, y))
+                x = x + self.cell_size
 
     def create_objects(self):
         """This method will bring up widgets that are necessary to this view 

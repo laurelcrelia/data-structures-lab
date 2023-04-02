@@ -1,10 +1,11 @@
 import pygame
 from ui.menu import Menu
+from ui.grid import Grid
 from ui.maze import Maze
 
 WHITE = (255, 255, 255)
 
-WIDTH = 440
+WIDTH = 640
 HEIGHT = 440
 
 #pylint: disable=no-member
@@ -17,13 +18,16 @@ class App():
 
         Args:
             screen: A variable that is constructed by desired pygame window's width and height.
+            grid_size: A variable that is constructed by the outcome of the Grid class 
+            and determines the grid size for Maze class.
         """
         pygame.init()
 
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
         Menu(screen).mainloop()
-        Maze(screen).mainloop()
+        grid_size = Grid(screen).mainloop()
+        Maze(screen, grid_size).mainloop()
 
         pygame.quit()
 

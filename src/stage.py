@@ -18,10 +18,16 @@ class Stage():
             screen: Screen variable which is needed with many pygame interface-building functions.
             is_running: Boolean variable that determines whether particular stage is running or not.
             widgets: List that contains widgets that are implemented in a view.
+            grid_size: List that contains all grid size options.
         """
         self.screen = screen
         self.is_running = False
         self.widgets = []
+
+        self.grid_size = [5, 10, 15]
+
+        self.width = 640
+        self.height = 440
 
     def quit(self):
         pass
@@ -49,6 +55,13 @@ class Stage():
 
                 if self.handle_event(event) is False:
                     self.is_running = False
+
+                if self.handle_event(event) == 0:
+                    return self.grid_size[0]
+                if self.handle_event(event) == 1:
+                    return self.grid_size[1]
+                if self.handle_event(event) == 2:
+                    return self.grid_size[2]
 
             self.update()
             self.draw()
