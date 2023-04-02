@@ -3,8 +3,6 @@ from ui.menu import Menu
 from ui.grid import Grid
 from ui.maze import Maze
 
-WHITE = (255, 255, 255)
-
 WIDTH = 640
 HEIGHT = 440
 
