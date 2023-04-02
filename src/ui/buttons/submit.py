@@ -24,7 +24,10 @@ class Submit():
         self.text_pos = position
 
         self.font = pygame.font.SysFont("Segoe UI", 30)
-        self.text = self.font.render(f"{self.value}", True, (205, 38, 38))
+        if len(str(self.value)) < 2:
+            self.text = self.font.render(f" {self.value}", True, (205, 38, 38))
+        else:
+            self.text = self.font.render(f"{self.value}", True, (205, 38, 38))
 
         self.box = [100, 50]
         self.border= [30, 10]
