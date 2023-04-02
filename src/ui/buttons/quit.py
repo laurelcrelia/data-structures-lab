@@ -7,9 +7,11 @@ class Quit():
     Attributes:
         screen: Attribute which is set up in the App class by 
         pygame.display.set_mode((WIDTH, HEIGHT)) function.
+        width: Attribute which is set up in the App class and tells screen width.
+        height: Attribute which is set up in the App class and tells screen height.
     """
 
-    def __init__(self, screen):
+    def __init__(self, screen, width, height):
         """The constructor for this class.
         
         Args:
@@ -19,15 +21,17 @@ class Quit():
             border:  Button's border width ([0]) and height ([1]),
             screen: Screen variable which is needed with many pygame interface-building functions.
         """
-        self.text_pos = [180, 240]
-        self.box = [100, 40]
-        self.border= [10, 5]
         self.font = pygame.font.SysFont("Segoe UI", 30)
-        self.text = self.font.render("Quit", True, (205, 38, 38))
+        self.text = self.font.render("Quit ", True, (205, 38, 38))
+        self.text_pos = self.text.get_rect(center=(width/2, height/2+60))
+
+        self.box = [120, 40]
+        self.border= [20, 5]
+
         self.screen = screen
 
     def draw(self):
-        self.screen.blit(self.text, (self.text_pos[0], self.text_pos[1]))
+        self.screen.blit(self.text, self.text_pos)
 
     def update(self):
         """This method controls the button's color based on mouse movement."""

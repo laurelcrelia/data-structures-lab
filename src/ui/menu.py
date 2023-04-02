@@ -27,14 +27,15 @@ class Menu(Stage):
 
     def draw_menu(self):
         self.screen.fill((0, 0, 0))
-        self.screen.blit(self.text, (45, 70))
+        text_rect = self.text.get_rect(center=(self.width/2, self.height/2-120))
+        self.screen.blit(self.text, text_rect)
 
     def create_objects(self):
         """This method will bring up widgets that are necessary 
         to this view by adding them to widget list. 
         """
-        quit_btn = Quit(self.screen)
-        start_btn = Start(self.screen)
+        quit_btn = Quit(self.screen, self.width, self.height)
+        start_btn = Start(self.screen, self.width, self.height)
         self.widgets.append(quit_btn)
         self.widgets.append(start_btn)
 
