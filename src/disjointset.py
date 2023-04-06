@@ -5,17 +5,18 @@ class DisjointSet():
     the minimum spanning tree of a graph.
     """
 
-    def __init__(self, n):
-        """The constructor for this class. Sets up necessary variables and calls make_set() method."""
-        self.n = n
-        self.rank = [1]*n
+    def __init__(self, n_items):
+        """The constructor for this class. 
+        Sets up necessary variables and calls make_set() method."""
+        self.n_items = n_items
+        self.rank = [1]*self.n_items
         self.parent = {}
 
         self.make_set()
 
     def make_set(self):
         """This method creates disjoint sets from each item in given set"""
-        for i in range(1, self.n+1):
+        for i in range(1, self.n_items+1):
             self.parent[i] = i
 
     def find(self, i):
@@ -31,19 +32,17 @@ class DisjointSet():
 
         self.parent[root_x] = root_y
 
-def print_sets(n, ds):
-    print([ds.find(i) for i in range(1, n+1)])
+def print_sets(n_items, some_set):
+    print([some_set.find(i) for i in range(1, n_items+1)])
 
 if __name__ == "__main__":
-    n = 5
-
-    disjoint_set = DisjointSet(n)
+    disjoint_set = DisjointSet(5)
 
     disjoint_set.union(1, 3)
     disjoint_set.union(5, 3)
     disjoint_set.union(4, 2)
 
-    print_sets(n, disjoint_set)
+    print_sets(5, disjoint_set)
 
     if disjoint_set.find(5) == disjoint_set.find(1):
         print("Yes")
