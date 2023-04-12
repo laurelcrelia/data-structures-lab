@@ -1,7 +1,10 @@
 import pygame
 from stage import Stage
+from dfs import DepthFirstSearch
 
 WHITE = (255, 255, 255)
+RED = (205, 19, 19)
+YELLOW = (255 ,255 ,0)
 
 class Maze(Stage):
     """This class creates the maze window interface.
@@ -22,33 +25,38 @@ class Maze(Stage):
             grid_1: List variable that stores the first grid for later events with maze.
             grid_2: List variable that stores the second grid for later events with maze.
         """
+        self.algorithm_1 = DepthFirstSearch(self)
+
         self.grid_size = grid_size
         self.cell_size = 40/(self.grid_size/5)
         self.screen_unit = 40
 
-        self.x_axis = 0
+        self.x_axis_1 = int(2*self.screen_unit)
+        self.x_axis_2 = int(640-((self.grid_size*self.cell_size)+2*self.screen_unit)) 
         self.y_axis = (3+((self.grid_size/5)*0.25))*self.screen_unit
+
         self.grid_1 = []
         self.grid_2 = []
 
         self.draw_view()
+        self.start_dfs()
 
     def draw_view(self):
         """This method calls all the necessary methods for constructing maze view."""
         self.draw_texts()
-        self.draw_maze_1(self.x_axis, self.y_axis)
-        self.draw_maze_2(self.x_axis, self.y_axis)
+        self.draw_maze_1(0, self.y_axis)
+        self.draw_maze_2(0, self.y_axis)
 
     def draw_texts(self):
         """This method sets up background color for this view 
         and draws maze generating algorithm names for the grids.
         """
-        self.font = pygame.font.SysFont("Segoe UI", 50)
-        self.text_1 = self.font.render("Kruskal's", False, (169, 169, 169))
-        self.text_2 = self.font.render("DFS", False, (169, 169, 169))
+        self.font = pygame.font.SysFont("Segoe UI", 43)
+        self.text_1 = self.font.render("Depth-first", False, (169, 169, 169))
+        self.text_2 = self.font.render("Kruskal's", False, (169, 169, 169))
         self.screen.fill((0, 0, 0))
         self.screen.blit(self.text_1, (2*self.screen_unit, 2*self.screen_unit))
-        self.screen.blit(self.text_2, (640-((5*self.screen_unit)+self.screen_unit), 2*self.screen_unit))
+        self.screen.blit(self.text_2, (640-(6.8*self.screen_unit), 2*self.screen_unit))
 
     def draw_maze_1(self, x, y):
         """This method draws the first grid.
@@ -114,3 +122,32 @@ class Maze(Stage):
         """
         for widget in self.widgets:
             widget.handle_event(event)
+
+    def start_dfs(self):
+        """This method calls dfs algorithm."""
+        self.algorithm_1.generate()
+
+    def up(self, x, y):
+        pygame.draw.rect(self.screen, RED, (x + 1, y - self.cell_size+1, self.cell_size-1, self.cell_size*2-1), 0)
+        pygame.display.update()
+
+    def down(self, x, y):
+        pygame.draw.rect(self.screen, RED, (x + 1, y + 1, self.cell_size-1, self.cell_size*2-1), 0)
+        pygame.display.update()
+
+    def left(self, x, y):
+        pygame.draw.rect(self.screen, RED, (x - self.cell_size+1, y + 1, self.cell_size*2-1, self.cell_size-1), 0)
+        pygame.display.update()
+
+    def right(self, x, y):
+        pygame.draw.rect(self.screen, RED, (x + 1, y + 1, self.cell_size*2-1, self.cell_size-1), 0)
+        pygame.display.update()
+
+    def current_cell(self, x, y):
+        pygame.draw.rect(self.screen, YELLOW, (x + 1, y + 1, self.cell_size-1, self.cell_size-1), 0)
+        pygame.display.update()
+
+    def backtracking_cell(self, x, y):
+        pygame.draw.rect(self.screen, RED, (x +1, y +1, self.cell_size-1, self.cell_size-1), 0)
+        pygame.display.update()
+        self.algorithm_1.recursion(x, y)
