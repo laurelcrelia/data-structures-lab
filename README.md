@@ -1,6 +1,7 @@
 # Maze generator
 
 ![GHA workflow badge](https://github.com/laurelcrelia/data-structures-lab/workflows/CI/badge.svg)
+[![codecov](https://codecov.io/gh/laurelcrelia/data-structures-lab/branch/main/graph/badge.svg?token=XSGKMVPU1C)](https://codecov.io/gh/laurelcrelia/data-structures-lab)
 
 Project for Data Structures Lab course at the University of Helsinki.
 
