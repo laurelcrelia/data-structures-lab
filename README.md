@@ -1,5 +1,7 @@
 # Maze generator
 
+![GHA workflow badge](https://github.com/laurelcrelia/data-structures-lab/workflows/CI/badge.svg)
+
 Project for Data Structures Lab course at the University of Helsinki.
 
 ### Documentation:
