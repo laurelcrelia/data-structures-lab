@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["laurelcrelia <laurel.matt@helsinki.fi>"]
 readme = "README.md"
-packages = [{include = "data_structures_lab"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
