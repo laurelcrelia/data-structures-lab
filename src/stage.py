@@ -24,7 +24,7 @@ class Stage():
         self.is_running = False
         self.widgets = []
 
-        self.grid_size = [5, 10, 15]
+        self.grid_size = [5, 10, 20]
 
         self.width = 640
         self.height = 440
