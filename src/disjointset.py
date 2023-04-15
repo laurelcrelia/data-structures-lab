@@ -32,27 +32,6 @@ class DisjointSet():
 
         self.parent[root_x] = root_y
 
-def print_sets(n_items, some_set):
-    print([some_set.find(i) for i in range(1, n_items+1)])
-
-if __name__ == "__main__":
-    disjoint_set = DisjointSet(5)
-
-    disjoint_set.union(1, 3)
-    disjoint_set.union(5, 3)
-    disjoint_set.union(4, 2)
-
-    print_sets(5, disjoint_set)
-
-    if disjoint_set.find(5) == disjoint_set.find(1):
-        print("Yes")
-    else:
-        print("No")
-
-    if disjoint_set.find(2) == disjoint_set.find(1):
-        print("Yes")
-    else:
-        print("No")
 
 #The source that was used to create this implementation of disjoint-set data structure:
     # https://www.geeksforgeeks.org/disjoint-set-data-structures/
