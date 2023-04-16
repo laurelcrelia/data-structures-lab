@@ -1,5 +1,9 @@
 import random
+import sys
+import pygame
 from disjointset import DisjointSet
+
+#pylint: disable=no-member
 
 class Kruskals:
     """This class controls the Kruskal's algorithm that generates the second maze.
@@ -138,6 +142,10 @@ class Kruskals:
     def generate(self):
         """This method manages the main functionality of Kruskal's algorithm."""
         while self.walls_down < len(self.cells)-1:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
             chosen_cell = self.choose_cell()
             chosen_coordinates = self.convert_to_coordinates(chosen_cell)
             self.find_neighbors(chosen_coordinates[0], chosen_coordinates[1])
