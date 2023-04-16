@@ -16,7 +16,7 @@ class DisjointSet():
 
     def make_set(self):
         """This method creates disjoint sets from each item in given set"""
-        for i in range(1, self.n_items+1):
+        for i in range(self.n_items):
             self.parent[i] = i
 
     def find(self, i):

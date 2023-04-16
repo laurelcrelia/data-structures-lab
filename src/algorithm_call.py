@@ -1,4 +1,5 @@
 from dfs import DepthFirstSearch
+from kruskals import Kruskals
 
 #pylint: disable=no-member
 
@@ -12,10 +13,15 @@ class Call:
     def __init__(self, maze):
         """The constructor for this class."""
         self.maze = maze
+        self.kruskal = Kruskals(self.maze)
         self.dfs = DepthFirstSearch(self.maze)
 
-    # def kruskals(self):
-    #     """This method invokes the Kruskal's algorithm."""
+    def kruskals(self):
+        """This method invokes the Kruskal's algorithm."""
+        self.kruskal.initialize_coordinates()
+        self.kruskal.initialize_cells()
+        self.kruskal.initialize_sets()
+        self.kruskal.generate()
 
     def depth_first_search(self):
         """This method invokes the DFS algorithm."""

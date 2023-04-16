@@ -64,6 +64,7 @@ class Stage():
                     return self.grid_size[2]
 
             if algorithm:
+                algorithm.kruskals()
                 algorithm.depth_first_search()
 
             self.update()
