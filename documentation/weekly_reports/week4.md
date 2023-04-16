@@ -29,9 +29,9 @@
 - Created first tests for Kruskals class.
 
 ## What was hard or caused problems:
-Making tests for dfs class because of the recursive function in it. I also have some pygame code mixed in both algorithms’ classes because I couldn't yet figure out a better way to allow the user to exit the pygame window during maze generating. This also causes problems with testing.
+Making tests for dfs class because of the recursive function in it. I am also considering changing my dfs algorithm to iterative version since the recursive implementation exceedes the maximum recursion depth when generating big mazes. I also have some pygame code mixed in both algorithms’ classes because I couldn't yet figure out a better way to allow the user to exit the pygame window during maze generating. This also causes problems with testing.
 
-I would be happy to receive some suggestions on this.
+I would be happy to receive some suggestions on these matters.
 
 ## What I learned:
 Once you have everything else figured out in your code, the algorithms themselves are quite simple to implement. This became clear when I added Kruskal's algorithm surprisingly fast into my code. Prior to that I had already finished one algorithm (dfs) and created a perfectly working disjoint set class which had already been tested.
