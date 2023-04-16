@@ -1,7 +1,6 @@
 from dfs import DepthFirstSearch
 from kruskals import Kruskals
 
-#pylint: disable=no-member
 
 class Call:
     """This class invokes the algorithms.
