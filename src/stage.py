@@ -40,7 +40,7 @@ class Stage():
         for widget in self.widgets:
             widget.update()
 
-    def mainloop(self):
+    def mainloop(self, algorithm):
         """Main loop of the app's event chain."""
         self.is_running = True
 
@@ -62,6 +62,9 @@ class Stage():
                     return self.grid_size[1]
                 if self.handle_event(event) == 2:
                     return self.grid_size[2]
+
+            if algorithm:
+                algorithm.depth_first_search()
 
             self.update()
             self.draw()

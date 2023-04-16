@@ -2,6 +2,7 @@ import pygame
 from ui.menu import Menu
 from ui.grid import Grid
 from ui.maze import Maze
+from algorithm_call import Call
 
 WIDTH = 640
 HEIGHT = 440
@@ -23,9 +24,11 @@ class App():
 
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-        Menu(screen).mainloop()
-        grid_size = Grid(screen).mainloop()
-        Maze(screen, grid_size).mainloop()
+        Menu(screen).mainloop(None)
+        grid_size = Grid(screen).mainloop(None)
+        maze =  Maze(screen, grid_size)
+        algorithm = Call(maze)
+        maze.mainloop(algorithm)
 
         pygame.quit()
 

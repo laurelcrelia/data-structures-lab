@@ -1,6 +1,6 @@
 import pygame
 from stage import Stage
-from dfs import DepthFirstSearch
+import time
 
 WHITE = (255, 255, 255)
 RED = (205, 19, 19)
@@ -25,7 +25,6 @@ class Maze(Stage):
             grid_1: List variable that stores the first grid for later events with maze.
             grid_2: List variable that stores the second grid for later events with maze.
         """
-        self.algorithm_1 = DepthFirstSearch(self)
 
         self.grid_size = grid_size
         self.cell_size = 40/(self.grid_size/5)
@@ -39,7 +38,6 @@ class Maze(Stage):
         self.grid_2 = []
 
         self.draw_view()
-        self.start_dfs()
 
     def draw_view(self):
         """This method calls all the necessary methods for constructing maze view."""
@@ -123,31 +121,33 @@ class Maze(Stage):
         for widget in self.widgets:
             widget.handle_event(event)
 
-    def start_dfs(self):
-        """This method calls dfs algorithm."""
-        self.algorithm_1.generate()
-
     def up(self, x, y):
+        time.sleep(.07)
         pygame.draw.rect(self.screen, RED, (x + 1, y - self.cell_size+1, self.cell_size-1, self.cell_size*2-1), 0)
         pygame.display.update()
 
     def down(self, x, y):
+        time.sleep(.07)
         pygame.draw.rect(self.screen, RED, (x + 1, y + 1, self.cell_size-1, self.cell_size*2-1), 0)
         pygame.display.update()
 
     def left(self, x, y):
+        time.sleep(.07)
         pygame.draw.rect(self.screen, RED, (x - self.cell_size+1, y + 1, self.cell_size*2-1, self.cell_size-1), 0)
         pygame.display.update()
 
     def right(self, x, y):
+        time.sleep(.07)
         pygame.draw.rect(self.screen, RED, (x + 1, y + 1, self.cell_size*2-1, self.cell_size-1), 0)
         pygame.display.update()
 
     def current_cell(self, x, y):
+        time.sleep(.07)
         pygame.draw.rect(self.screen, YELLOW, (x + 1, y + 1, self.cell_size-1, self.cell_size-1), 0)
         pygame.display.update()
 
     def backtracking_cell(self, x, y):
+        time.sleep(.07)
         pygame.draw.rect(self.screen, RED, (x +1, y +1, self.cell_size-1, self.cell_size-1), 0)
         pygame.display.update()
-        self.algorithm_1.recursion(x, y)
+

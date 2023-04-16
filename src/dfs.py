@@ -1,6 +1,5 @@
-import sys
 import random
-import time
+import sys
 import pygame
 
 #pylint: disable=no-member
@@ -15,7 +14,12 @@ class DepthFirstSearch:
     def __init__(self, maze):
         """The constructor for this class. 
         Sets up all needed data structures e.g. stack and lists."""
+
         self.maze = maze
+
+        self.x_axis = self.maze.x_axis_1
+        self.y_axis = self.maze.y_axis
+        self.cell_size = 40/(self.maze.grid_size/5)
 
         self.stack = []
 
@@ -23,21 +27,16 @@ class DepthFirstSearch:
         self.neighbors = []
         self.visited = []
 
-    def generate(self):
-        """This method chooses a random cell from the list of all existing cells 
-        and starts dfs's recursion with the chosen random cell.
-        """
-        self.initialize_cells()
-        chosen_cell = random.choice(self.cells)
-        self.recursion(chosen_cell[0], chosen_cell[1])
-
     def initialize_cells(self):
         """This method initializes cells by adding all existing cells to a list."""
-        x_axis = self.maze.x_axis_1
-        y_axis = self.maze.y_axis
         for i in range(self.maze.grid_size):
             for j in range(1, self.maze.grid_size+1):
-                self.cells.append((x_axis+(i*self.maze.cell_size), y_axis+(j*self.maze.cell_size)))
+                self.cells.append((self.x_axis+(i*self.cell_size), self.y_axis+(j*self.cell_size)))
+
+    def choose_cell(self):
+        """This method chooses a random cell from the list of all cells"""
+        chosen_cell = random.choice(self.cells)
+        return chosen_cell
 
     def find_neighbors(self, x_axis, y_axis):
         """This method picks the neighbors of the current cell
@@ -49,25 +48,25 @@ class DepthFirstSearch:
         """
         self.neighbors.clear()
 
-        right_neighbor = (x_axis + self.maze.cell_size, y_axis)
-        left_neighbor = (x_axis - self.maze.cell_size, y_axis)
-        lower_neighbor = (x_axis , y_axis + self.maze.cell_size)
-        upper_neighbor = (x_axis, y_axis - self.maze.cell_size)
+        right_neighbor = (x_axis + self.cell_size, y_axis)
+        left_neighbor = (x_axis - self.cell_size, y_axis)
+        lower_neighbor = (x_axis , y_axis + self.cell_size)
+        upper_neighbor = (x_axis, y_axis - self.cell_size)
 
-        if right_neighbor not in self.visited and right_neighbor in self.maze.grid_1:
+        if right_neighbor not in self.visited and right_neighbor in self.cells:
             self.neighbors.append("right")
 
-        if left_neighbor not in self.visited and left_neighbor in self.maze.grid_1:
+        if left_neighbor not in self.visited and left_neighbor in self.cells:
             self.neighbors.append("left")
 
-        if lower_neighbor not in self.visited and lower_neighbor in self.maze.grid_1:
+        if lower_neighbor not in self.visited and lower_neighbor in self.cells:
             self.neighbors.append("down")
 
-        if upper_neighbor not in self.visited and upper_neighbor in self.maze.grid_1:
+        if upper_neighbor not in self.visited and upper_neighbor in self.cells:
             self.neighbors.append("up")
 
     def recursion(self, x_axis, y_axis):
-        """This is the recursive function of DFS
+        """This is the recursive function of DFS.
 
         Args:
             x_axis: Variable that determines x coordinate of the current cell.
@@ -80,8 +79,6 @@ class DepthFirstSearch:
                     running = False
                     pygame.quit()
                     sys.exit()
-
-            time.sleep(.07)
 
             self.find_neighbors(x_axis, y_axis)
 
@@ -102,29 +99,34 @@ class DepthFirstSearch:
         """
         chosen_neighbor = random.choice(self.neighbors)
 
+        self.visit_cell(x_axis, y_axis)
+        self.stack.append((x_axis, y_axis))
+
         new_x = x_axis
         new_y = y_axis
 
         if chosen_neighbor == "right":
             self.maze.right(x_axis, y_axis)
-            new_x = x_axis + self.maze.cell_size
+            new_x = x_axis + self.cell_size
 
         elif chosen_neighbor == "left":
             self.maze.left(x_axis, y_axis)
-            new_x = x_axis - self.maze.cell_size
+            new_x = x_axis - self.cell_size
 
         elif chosen_neighbor == "down":
             self.maze.down(x_axis, y_axis)
-            new_y = y_axis + self.maze.cell_size
+            new_y = y_axis + self.cell_size
 
         elif chosen_neighbor == "up":
             self.maze.up(x_axis, y_axis)
-            new_y = y_axis - self.maze.cell_size
+            new_y = y_axis - self.cell_size
 
-        self.visited.append((x_axis, y_axis))
-        self.stack.append((x_axis, y_axis))
-        self.visited.append((new_x, new_y))
+        self.visit_cell(new_x, new_y)
         self.recursion(new_x,new_y)
+
+    def visit_cell(self, x_axis, y_axis):
+        """This method marks given cell visited by adding it to a visited list."""
+        self.visited.append((x_axis, y_axis))
 
     def backtrack(self, x_axis, y_axis):
         """This method is called from recursion method when backtracking needs to take place.
@@ -137,8 +139,8 @@ class DepthFirstSearch:
         """
         x_axis, y_axis = self.stack.pop()
         self.maze.current_cell(x_axis, y_axis)
-        time.sleep(.05)
         self.maze.backtracking_cell(x_axis, y_axis)
+        self.recursion(x_axis, y_axis)
 
 
 #The source that was used to implement this dfs algorithm:
