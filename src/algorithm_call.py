@@ -24,6 +24,8 @@ class Call:
 
     def depth_first_search(self):
         """This method invokes the DFS algorithm."""
-        self.dfs.initialize_cells()
-        chosen_cell = self.dfs.choose_cell()
-        self.dfs.recursion(chosen_cell[0], chosen_cell[1])
+        self.dfs.initialize_coordinates()
+        visited = self.dfs.initialize_visited()
+        running = True
+        while running:
+            self.dfs.generate(visited, False)

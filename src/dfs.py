@@ -12,135 +12,135 @@ class DepthFirstSearch:
     """
 
     def __init__(self, maze):
-        """The constructor for this class. 
-        Sets up all needed data structures e.g. stack and lists."""
+        """The constructor for this class.
+        Sets up needed variables."""
 
         self.maze = maze
 
-        self.x_axis = self.maze.x_axis_1
-        self.y_axis = self.maze.y_axis
+        self.x = self.maze.x_axis_1
+        self.y = self.maze.y_axis
         self.cell_size = 40/(self.maze.grid_size/5)
 
-        self.stack = []
+        self.coordinates = []
 
-        self.cells = []
-        self.neighbors = []
-        self.visited = []
-
-    def initialize_cells(self):
-        """This method initializes cells by adding all existing cells to a list."""
+    def initialize_coordinates(self):
+        """This method initializes coordinates of all existing cells."""
         for i in range(self.maze.grid_size):
             for j in range(1, self.maze.grid_size+1):
-                self.cells.append((self.x_axis+(i*self.cell_size), self.y_axis+(j*self.cell_size)))
+                self.coordinates.append((self.x+(i*self.cell_size), self.y+(j*self.cell_size)))
 
-    def choose_cell(self):
-        """This method chooses a random cell from the list of all cells"""
-        chosen_cell = random.choice(self.cells)
-        return chosen_cell
+    def initialize_visited(self):
+        """This method initializes two-dimensional boolean table, which
+        keeps track of visited cells."""
+        visited = ([[False for i in range(self.maze.grid_size)]for j in range(self.maze.grid_size)])
+        return visited
 
-    def find_neighbors(self, x_axis, y_axis):
+    def find_neighbors(self, current, visited):
         """This method picks the neighbors of the current cell
-        that have all their walls up i.e. are unvisited and adds them to 
+        that have all their walls up i.e. are unvisited and adds them to
         neighbors -list.
         Args:
-            x_axis: Variable that determines the x coordinate of the current cell.
-            y_axis: Variable that determines the y coordinate of the current cell.
+            current: Tuple that has the position of current cell.
+            visited: Two-dimensional table of boolean values, which keeps a record of
+            the cells that are visited.
         """
-        self.neighbors.clear()
+        neighbors = []
 
-        right_neighbor = (x_axis + self.cell_size, y_axis)
-        left_neighbor = (x_axis - self.cell_size, y_axis)
-        lower_neighbor = (x_axis , y_axis + self.cell_size)
-        upper_neighbor = (x_axis, y_axis - self.cell_size)
+        x = current[0]
+        y = current[1]
 
-        if right_neighbor not in self.visited and right_neighbor in self.cells:
-            self.neighbors.append("right")
+        if x+1 <= self.maze.grid_size-1 and not visited[x + 1][y]:
+            neighbors.append((x + 1,y))
+        if x-1 >= 0 and not visited[x - 1][y]:
+            neighbors.append((x - 1,y))
+        if y+1 <= self.maze.grid_size-1 and not visited[x][y + 1]:
+            neighbors.append((x,y + 1))
+        if y-1 >= 0 and not visited[x][y - 1]:
+            neighbors.append((x,y - 1))
 
-        if left_neighbor not in self.visited and left_neighbor in self.cells:
-            self.neighbors.append("left")
+        if neighbors:
+            return random.choice(neighbors)
+        return None
 
-        if lower_neighbor not in self.visited and lower_neighbor in self.cells:
-            self.neighbors.append("down")
+    def generate(self, visited, test_mode):
+        """This method initializes stack, chooses a starting cell
+        and calls the dfs method.
+        
+        Args:
+            visited: Two-dimensional table of boolean values, which keeps a record of
+            the cells that are visited.
+            test_mode: Boolean value which determines whether testing is taking place.
+        """
+        start = (0,0)
+        stack = []
+        self.dfs(start, stack, visited, test_mode)
 
-        if upper_neighbor not in self.visited and upper_neighbor in self.cells:
-            self.neighbors.append("up")
-
-    def recursion(self, x_axis, y_axis):
+    def dfs(self, current, stack, visited, test_mode):
         """This is the recursive function of DFS.
 
         Args:
-            x_axis: Variable that determines x coordinate of the current cell.
-            y_axis: Variable that determines y coordinate of the current cell.
+            current: Tuple that has the position of current cell.
+            stack: Variable that determines y coordinate of the current cell.
+            visited: Two-dimensional table of boolean values, which keeps a record of
+            the cells that are visited.
+            test_mode: Boolean value which determines whether testing is taking place.
         """
-        running = True
-        while running:
+        if not test_mode:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
                     pygame.quit()
                     sys.exit()
 
-            self.find_neighbors(x_axis, y_axis)
+        x, y = current[0], current[1]
 
-            if len(self.neighbors) > 0:
-                self.next_neighbor(x_axis, y_axis)
+        chosen_neighbor = self.find_neighbors(current, visited)
+        current_coordinates = self.convert_to_coordinates(current)
 
-            else:
-                if len(self.stack) > 0:
-                    self.backtrack(x_axis, y_axis)
+        if chosen_neighbor:
+            neighbor_coordinates = self.convert_to_coordinates(chosen_neighbor)
 
-    def next_neighbor(self, x_axis, y_axis):
-        """This method is called from recursion method when there is a need to 
-        knock down a wall between current and neighbor.
+            visited[current[0]][current[1]] = True
+            stack.append((x, y))
 
+            self.maze_directions(current_coordinates, neighbor_coordinates)
+
+            visited[chosen_neighbor[0]][chosen_neighbor[1]] = True
+            self.dfs((chosen_neighbor[0],chosen_neighbor[1]), stack, visited, test_mode)
+
+        else:
+            if len(stack) > 0:
+                x, y = stack.pop()
+                self.maze.current_cell(current_coordinates[0], current_coordinates[1])
+                self.maze.backtracking_cell(current_coordinates[0], current_coordinates[1])
+                self.dfs((x, y), stack, visited, test_mode)
+
+    def maze_directions(self, current_coordinates, neighbor_coordinates):
+        """This method calls necessary visualization method from Maze class 
+        based on which neighbor of the current cell was chosen. 
         Args:
-            x_axis: Variable that determines x coordinate of the current cell.
-            y_axis: Variable that determines y coordinate of the current cell.
+            current_coordinates: Tuple that consists of current cell's coordinates.
+            neighbor_coordinates: Tuple that consists of the neighbor's coordinates.
         """
-        chosen_neighbor = random.choice(self.neighbors)
+        if neighbor_coordinates[0] > current_coordinates[0]:
+            self.maze.right(current_coordinates[0], current_coordinates[1])
 
-        self.visit_cell(x_axis, y_axis)
-        self.stack.append((x_axis, y_axis))
+        elif neighbor_coordinates[0] < current_coordinates[0]:
+            self.maze.left(current_coordinates[0], current_coordinates[1])
 
-        new_x = x_axis
-        new_y = y_axis
+        elif neighbor_coordinates[1] > current_coordinates[1]:
+            self.maze.down(current_coordinates[0], current_coordinates[1])
 
-        if chosen_neighbor == "right":
-            self.maze.right(x_axis, y_axis)
-            new_x = x_axis + self.cell_size
+        elif neighbor_coordinates[1] < current_coordinates[1]:
+            self.maze.up(current_coordinates[0], current_coordinates[1])
 
-        elif chosen_neighbor == "left":
-            self.maze.left(x_axis, y_axis)
-            new_x = x_axis - self.cell_size
-
-        elif chosen_neighbor == "down":
-            self.maze.down(x_axis, y_axis)
-            new_y = y_axis + self.cell_size
-
-        elif chosen_neighbor == "up":
-            self.maze.up(x_axis, y_axis)
-            new_y = y_axis - self.cell_size
-
-        self.visit_cell(new_x, new_y)
-        self.recursion(new_x,new_y)
-
-    def visit_cell(self, x_axis, y_axis):
-        """This method marks given cell visited by adding it to a visited list."""
-        self.visited.append((x_axis, y_axis))
-
-    def backtrack(self, x_axis, y_axis):
-        """This method is called from recursion method when backtracking needs to take place.
-        This method pops current cell off of the stack and calls backtracking_cell() 
-        which in turn will call recursion method after it has drawn the track to the maze.
-
+    def convert_to_coordinates(self, current):
+        """This method converts cell position into its corresponding coordinates.
         Args:
-            x_axis: Variable that determines x coordinate of the current cell.
-            y_axis: Variable that determines y coordinate of the current cell.
+            current: Tuple that has the position of the cell that is to be converted.
         """
-        x_axis, y_axis = self.stack.pop()
-        self.maze.current_cell(x_axis, y_axis)
-        self.maze.backtracking_cell(x_axis, y_axis)
-        self.recursion(x_axis, y_axis)
+        index = current[0]*self.maze.grid_size+current[1]
+        coordinates = self.coordinates[index]
+        return coordinates
 
 
 #The source that was used to implement this dfs algorithm:
