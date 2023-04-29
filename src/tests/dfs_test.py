@@ -41,12 +41,28 @@ class TestDepthFirstSearch(unittest.TestCase):
         self.maze = StubMaze(GRID_SIZE)
         self.dfs = DepthFirstSearch(self.maze)
         self.dfs.initialize_coordinates()
+        self.visited = self.dfs.initialize_visited()
+        self.adjacency_list = self.dfs.initialize_adjacency_list()
 
     def test_every_cell_is_visited(self):
-        visited = self.dfs.initialize_visited()
-        self.dfs.generate(visited, True)
+        self.dfs.generate(self.visited, self.adjacency_list, True)
 
         answer = ([[True for i in range(self.maze.grid_size)]for j in range(self.maze.grid_size)])
         
-        self.assertEqual(visited, answer)
+        self.assertEqual(self.visited, answer)
+
+    def test_no_cycles(self):
+        # If x is the amount of nodes, in undirected graph there needs to be exactly x-1 amount of edges, 
+        # for there to be no cycle.
+        self.dfs.generate(self.visited, self.adjacency_list, True)
+
+        answer = self.maze.grid_size*self.maze.grid_size-1
+
+        count = 0
+        for keys in self.adjacency_list:
+            for value in self.adjacency_list[keys]:
+                count += 1
+
+        self.assertEqual(count//2, answer)
+
 

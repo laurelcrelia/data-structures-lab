@@ -35,6 +35,19 @@ class DepthFirstSearch:
         visited = ([[False for i in range(self.maze.grid_size)]for j in range(self.maze.grid_size)])
         return visited
 
+    def initialize_adjacency_list(self):
+        """This method initializes adjacency list, which illustrates the edges between the nodes."""
+        adjacency_list = {}
+        return adjacency_list
+
+    def add_edge(self, adjacency_list, x, y):
+        if x not in adjacency_list:
+            adjacency_list[x] = []
+        if y not in adjacency_list:
+            adjacency_list[y] = []
+        adjacency_list[x].append(y)
+        adjacency_list[y].append(x)
+
     def find_neighbors(self, current, visited):
         """This method picks the neighbors of the current cell
         that have all their walls up i.e. are unvisited and adds them to
@@ -62,7 +75,7 @@ class DepthFirstSearch:
             return random.choice(neighbors)
         return None
 
-    def generate(self, visited, test_mode):
+    def generate(self, visited, adjacency_list, test_mode):
         """This method initializes stack, chooses a starting cell
         and calls the dfs method.
         
@@ -73,9 +86,9 @@ class DepthFirstSearch:
         """
         start = (0,0)
         stack = []
-        self.dfs(start, stack, visited, test_mode)
+        self.dfs(start, stack, visited, adjacency_list, test_mode)
 
-    def dfs(self, current, stack, visited, test_mode):
+    def dfs(self, current, stack, visited, adj_list, test_mode):
         """This is the recursive function of DFS.
 
         Args:
@@ -103,16 +116,17 @@ class DepthFirstSearch:
             stack.append((x, y))
 
             self.maze_directions(current_coordinates, neighbor_coordinates)
+            self.add_edge(adj_list, current, chosen_neighbor)
 
             visited[chosen_neighbor[0]][chosen_neighbor[1]] = True
-            self.dfs((chosen_neighbor[0],chosen_neighbor[1]), stack, visited, test_mode)
+            self.dfs((chosen_neighbor[0],chosen_neighbor[1]), stack, visited, adj_list, test_mode)
 
         else:
             if len(stack) > 0:
                 x, y = stack.pop()
                 self.maze.current_cell(current_coordinates[0], current_coordinates[1])
                 self.maze.backtracking_cell(current_coordinates[0], current_coordinates[1])
-                self.dfs((x, y), stack, visited, test_mode)
+                self.dfs((x, y), stack, visited, adj_list, test_mode)
 
     def maze_directions(self, current_coordinates, neighbor_coordinates):
         """This method calls necessary visualization method from Maze class 
@@ -130,7 +144,7 @@ class DepthFirstSearch:
         elif neighbor_coordinates[1] > current_coordinates[1]:
             self.maze.down(current_coordinates[0], current_coordinates[1])
 
-        elif neighbor_coordinates[1] < current_coordinates[1]:
+        else:
             self.maze.up(current_coordinates[0], current_coordinates[1])
 
     def convert_to_coordinates(self, current):
