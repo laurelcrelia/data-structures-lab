@@ -19,7 +19,7 @@ poetry run coverage html
 ```
 Now the coverage report is found at htmlcov/index.html.    
 
-![coverage_report](https://user-images.githubusercontent.com/102039234/232335730-53771fcf-7577-4cea-87c0-e9f0e8020995.png)
+![Screenshot from 2023-04-30 14-26-27](https://user-images.githubusercontent.com/102039234/235350496-c9de311b-8ee0-4dd5-8611-87ab64ba55dc.png)
 
 
 
