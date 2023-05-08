@@ -24,13 +24,14 @@ class App():
 
         screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-        Menu(screen).mainloop(None)
-        grid_size = Grid(screen).mainloop(None)
-        maze =  Maze(screen, grid_size)
-        algorithm = Call(maze)
-        maze.mainloop(algorithm)
-
-        pygame.quit()
+        while True:
+            Menu(screen).mainloop()
+            grid_size = Grid(screen).mainloop()
+            maze =  Maze(screen, grid_size)
+            algorithm = Call(maze)
+            maze.handle_algorithms(algorithm)
+            maze.mainloop()
+            continue
 
 if __name__ == '__main__':
     App()

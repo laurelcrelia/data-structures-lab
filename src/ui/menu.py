@@ -34,8 +34,8 @@ class Menu(Stage):
         """This method will bring up widgets that are necessary 
         to this view by adding them to widget list. 
         """
-        quit_btn = Quit(self.screen, self.width, self.height)
-        start_btn = Start(self.screen, self.width, self.height)
+        quit_btn = Quit(self.screen, (self.width/2, self.height/2+60))
+        start_btn = Start(self.screen, (self.width/2, self.height/2-10))
         self.widgets.append(quit_btn)
         self.widgets.append(start_btn)
 
@@ -53,4 +53,3 @@ class Menu(Stage):
         for widget in self.widgets:
             if widget.handle_event(event) is False:
                 return False
-

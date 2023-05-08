@@ -1,6 +1,8 @@
+import time
 import pygame
 from stage import Stage
-import time
+from ui.buttons.menu_btn import MenuButton
+from ui.buttons.quit import Quit
 
 WHITE = (255, 255, 255)
 RED = (205, 19, 19)
@@ -31,7 +33,7 @@ class Maze(Stage):
         self.screen_unit = 40
 
         self.x_axis_1 = int(2*self.screen_unit)
-        self.x_axis_2 = int(640-((self.grid_size*self.cell_size)+2*self.screen_unit)) 
+        self.x_axis_2 = int(640-((self.grid_size*self.cell_size)+2*self.screen_unit))
         self.y_axis = (3+((self.grid_size/5)*0.25))*self.screen_unit
 
         self.grid_1 = []
@@ -44,6 +46,7 @@ class Maze(Stage):
         self.draw_texts()
         self.draw_maze_1(0, self.y_axis)
         self.draw_maze_2(0, self.y_axis)
+        self.create_objects()
 
     def draw_texts(self):
         """This method sets up background color for this view 
@@ -88,7 +91,7 @@ class Maze(Stage):
         """
         for i in range(self.grid_size):
             grid = self.grid_size*self.cell_size
-            start_x = int(640-(grid+2*self.screen_unit)) 
+            start_x = int(640-(grid+2*self.screen_unit))
             x =  start_x
             y = y + self.cell_size
             for j in range(self.grid_size):
@@ -106,9 +109,12 @@ class Maze(Stage):
 
     def create_objects(self):
         """This method will bring up widgets that are necessary to this view 
-        by adding them to widget list. Currently no widgets.
+        by adding them to widget list.
         """
-        pass
+        menu_btn = MenuButton(self.screen, (100, 40))
+        quit_btn = Quit(self.screen, (530, 40))
+        self.widgets.append(menu_btn)
+        self.widgets.append(quit_btn)
 
     def handle_event(self, event):
         """This method takes in an event. 
@@ -119,7 +125,8 @@ class Maze(Stage):
             during Stage.mainloop.
         """
         for widget in self.widgets:
-            widget.handle_event(event)
+            if widget.handle_event(event) is False:
+                return False
 
     def up(self, x, y):
         time.sleep(.07)
@@ -150,4 +157,3 @@ class Maze(Stage):
         time.sleep(.07)
         pygame.draw.rect(self.screen, RED, (x +1, y +1, self.cell_size-1, self.cell_size-1), 0)
         pygame.display.update()
-

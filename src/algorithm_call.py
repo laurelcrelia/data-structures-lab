@@ -27,6 +27,4 @@ class Call:
         self.dfs.initialize_coordinates()
         visited = self.dfs.initialize_visited()
         adjacency_list = self.dfs.initialize_adjacency_list()
-        running = True
-        while running:
-            self.dfs.generate(visited, adjacency_list, False)
+        self.dfs.generate(visited, adjacency_list, False)

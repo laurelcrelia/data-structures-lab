@@ -7,11 +7,10 @@ class Quit():
     Attributes:
         screen: Attribute which is set up in the App class by 
         pygame.display.set_mode((WIDTH, HEIGHT)) function.
-        width: Attribute which is set up in the App class and tells screen width.
-        height: Attribute which is set up in the App class and tells screen height.
+        position: Attribute which tells the position of the button.
     """
 
-    def __init__(self, screen, width, height):
+    def __init__(self, screen, position):
         """The constructor for this class.
         
         Args:
@@ -23,7 +22,7 @@ class Quit():
         """
         self.font = pygame.font.SysFont("Segoe UI", 30)
         self.text = self.font.render("Quit ", True, (205, 38, 38))
-        self.text_pos = self.text.get_rect(center=(width/2, height/2+60))
+        self.text_pos = self.text.get_rect(center=position)
 
         self.box = [120, 40]
         self.border= [20, 5]

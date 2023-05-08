@@ -1,7 +1,7 @@
 import pygame
 
-class Start():
-    """This class creates start button for menu-view.
+class MenuButton():
+    """This class creates menu button for maze-view.
 
     Attributes:
         screen: Attribute which is set up in the App class 
@@ -20,7 +20,7 @@ class Start():
             screen: Screen variable which is needed with many pygame interface-building functions.
         """
         self.font = pygame.font.SysFont("Segoe UI", 30)
-        self.text = self.font.render("Start", True, (205, 38, 38))
+        self.text = self.font.render("Menu", True, (205, 38, 38))
         self.text_pos = self.text.get_rect(center=position)
 
         self.box = [120, 40]
