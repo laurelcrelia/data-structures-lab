@@ -9,15 +9,15 @@ My OhTe project was a very primitive maze type game and I figured it takes a lot
 This OhTe project was a very small project and creating an algorithm wasn’t essential then, but if I wanted to implement the idea on a bigger scale in future, it would become necessary to generate new levels by some algorithm. 
 
 ### Algorithms
-The algorithms that I will compare are **Randomized depth-first search** and **Randomized Kruskal’s algorithm**. 
-I chose depth-first search (also known as Recursive Backtracking) because it is fast and straightforward. Kruskal’s algorithm on the other hand is a greedy algorithm and thus different from randomized DFS algorithm. I expect the two algorithms to produce results with clear differences concerning performance. 
+The algorithms that I will compare are randomized **depth-first search** and randomized **Kruskal’s algorithm**. 
+I chose depth-first search (also known as Recursive Backtracking) because it is fast and straightforward. Kruskal’s algorithm on the other hand is a greedy algorithm and doesn't work too well on bigger mazes. I expect the two algorithms to produce results with differences concerning visual outcome of the maze.
 
 ### Data structures
-Randomized Kruskal’s algorithm uses disjoint set data structures.
-Randomized depth-first search uses graphs and stack helps with backtracking of graph.
+The maze can be viewed as a graph. The nodes can be stored in a two-dimensional array and adjacency list describes the connections (edges) between the nodes. 
+Depth-first search uses also a stack to help with backtracking on a graph. Kruskal’s algorithm uses disjoint set data structures.
 
 ### Input
-User can give the program a desired grid size and choose whether the DFS or Kruskal’s algorithm is used to generate the maze. 
+User can choose a grid size from three different options and the program starts generating Kruskal's and DFS mazes accordingly. 
 
 ### Expected time and space complexities
 For a graph with E edges and V vertices, the time complexity of DFS is O(|V| + |E|). Space complexity of DFS is O(|V|).   
