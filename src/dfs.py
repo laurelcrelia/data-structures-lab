@@ -17,8 +17,8 @@ class DepthFirstSearch:
 
         self.maze = maze
 
-        self.x = self.maze.x_axis_1
-        self.y = self.maze.y_axis
+        self.x = self.maze.x_1
+        self.y = self.maze.y
         self.cell_size = 40/(self.maze.grid_size/5)
 
         self.coordinates = []
@@ -37,17 +37,18 @@ class DepthFirstSearch:
         return visited
 
     def initialize_adjacency_list(self):
-        """This method initializes adjacency list, which illustrates the edges between the nodes."""
+        """This method initializes adjacency list, which illustrates the
+        edges between the nodes."""
         adjacency_list = {}
         return adjacency_list
 
-    def add_edge(self, adjacency_list, x, y):
-        if x not in adjacency_list:
-            adjacency_list[x] = []
-        if y not in adjacency_list:
-            adjacency_list[y] = []
-        adjacency_list[x].append(y)
-        adjacency_list[y].append(x)
+    def add_edge(self, adjacency_list, i, j):
+        if i not in adjacency_list:
+            adjacency_list[i] = []
+        if j not in adjacency_list:
+            adjacency_list[j] = []
+        adjacency_list[i].append(j)
+        adjacency_list[j].append(i)
 
     def find_neighbors(self, current, visited):
         """This method picks the neighbors of the current cell

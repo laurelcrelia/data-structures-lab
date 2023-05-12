@@ -20,7 +20,7 @@ class Call:
         self.kruskal.initialize_coordinates()
         self.kruskal.initialize_cells()
         self.kruskal.initialize_sets()
-        adjacency_list = self.dfs.initialize_adjacency_list()
+        adjacency_list = self.kruskal.initialize_adjacency_list()
         self.kruskal.generate(adjacency_list, False)
 
     def depth_first_search(self):

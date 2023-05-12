@@ -32,9 +32,9 @@ class Maze(Stage):
         self.cell_size = 40/(self.grid_size/5)
         self.screen_unit = 40
 
-        self.x_axis_1 = int(2*self.screen_unit)
-        self.x_axis_2 = int(640-((self.grid_size*self.cell_size)+2*self.screen_unit))
-        self.y_axis = (3+((self.grid_size/5)*0.25))*self.screen_unit
+        self.x_1 = int(2*self.screen_unit)
+        self.x_2 = int(640-((self.grid_size*self.cell_size)+2*self.screen_unit))
+        self.y = (3+((self.grid_size/5)*0.25))*self.screen_unit
 
         self.grid_1 = []
         self.grid_2 = []
@@ -44,8 +44,8 @@ class Maze(Stage):
     def draw_view(self):
         """This method calls all the necessary methods for constructing maze view."""
         self.draw_texts()
-        self.draw_maze_1(0, self.y_axis)
-        self.draw_maze_2(0, self.y_axis)
+        self.draw_maze_1(0, self.y)
+        self.draw_maze_2(0, self.y)
         self.create_objects()
 
     def draw_texts(self):

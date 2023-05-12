@@ -11,9 +11,9 @@ class StubMaze:
         self.cell_size = 40/(self.grid_size/5)
         self.screen_unit = 40
 
-        self.x_axis_1 = int(2*self.screen_unit)
-        self.x_axis_2 = int(640-((self.grid_size*self.cell_size)+2*self.screen_unit)) 
-        self.y_axis = (3+((self.grid_size/5)*0.25))*self.screen_unit
+        self.x_1 = int(2*self.screen_unit)
+        self.x_2 = int(640-((self.grid_size*self.cell_size)+2*self.screen_unit)) 
+        self.y = (3+((self.grid_size/5)*0.25))*self.screen_unit
 
         self.grid_1 = []
         self.grid_2 = []

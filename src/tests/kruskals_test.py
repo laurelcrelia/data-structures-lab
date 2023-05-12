@@ -12,9 +12,9 @@ class StubMaze:
         self.cell_size = 40/(self.grid_size/5)
         self.screen_unit = 40
 
-        self.x_axis_1 = int(2*self.screen_unit)
-        self.x_axis_2 = int(640-((self.grid_size*self.cell_size)+2*self.screen_unit))
-        self.y_axis = (3+((self.grid_size/5)*0.25))*self.screen_unit
+        self.x_1 = int(2*self.screen_unit)
+        self.x_2 = int(640-((self.grid_size*self.cell_size)+2*self.screen_unit))
+        self.y = (3+((self.grid_size/5)*0.25))*self.screen_unit
 
         self.grid_1 = []
         self.grid_2 = []
@@ -59,23 +59,10 @@ class TestKruskals(unittest.TestCase):
 
     def test_convertions_work(self):
         chosen_cell = random.choice(self.kruskals.cells)
-        coordinates = self.kruskals.convert_to_coordinates(chosen_cell)
-        new_cell = self.kruskals.convert_to_cell(coordinates)
+        ordinal = self.kruskals.convert(chosen_cell)[0]
+        coordinates = self.kruskals.convert(chosen_cell)[1]
 
-        self.assertEqual(chosen_cell, new_cell)
-
-    def test_finds_all_neighbors(self):
-        x = self.maze.x_axis_2+2*self.maze.cell_size
-        y = self.maze.y_axis+2*self.maze.cell_size
-
-        answer = []
-        answer.append("right")
-        answer.append("left")
-        answer.append("down")
-        answer.append("up")
-        self.kruskals.find_neighbors(x, y)
-
-        self.assertEqual(self.kruskals.neighbors, answer)
+        self.assertEqual(self.kruskals.coordinates[ordinal], coordinates)
 
     def test_connectivity(self):
         """We can test the connectivity of the maze with depth-first search.
@@ -111,8 +98,8 @@ class TestKruskals(unittest.TestCase):
         lists are the same, there is only one solution path.
         """
         self.kruskals.generate(self.adjacency_list, True)
-        start = 0
-        end = self.maze.grid_size-1
+        start = (0,0)
+        end = (self.maze.grid_size-1,self.maze.grid_size-1)
         visited_start = dfs(start, self.adjacency_list)
         visited_end = dfs(end, self.adjacency_list)
 
