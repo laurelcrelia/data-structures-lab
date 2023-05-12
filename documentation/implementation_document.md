@@ -30,6 +30,7 @@ Changes or new features:
 - There could be more grid size options where to choose from or the user could insert their own desired integer input. 
 - Both algorithms could generate their mazes at the same time or at least the visualization could happen at the same time.
 - Once the mazes are created, a button appears that could activate a feature that shows the solution path. This would require a pathfinding algorithm. DFS could do this too.
+- A feature that lets the user save or export the mazes in some way.
 
 ## Sources
 The algorithms were implemented according to the pseudocodes on [this](https://courses.cs.washington.edu/courses/cse326/07su/prj2/kruskal.html) site.   
