@@ -52,10 +52,18 @@ class Kruskals:
             self.disjointset.make_set()
             i -= 1
 
-    def choose_cell(self):
-        """This method chooses a random cell from the list of all cells."""
-        chosen_cell = random.choice(self.cells)
-        return chosen_cell
+    def initialize_adjacency_list(self):
+        """This method initializes adjacency list, which illustrates the edges between the nodes."""
+        adjacency_list = {}
+        return adjacency_list
+
+    def add_edge(self, adjacency_list, x, y):
+        if x not in adjacency_list:
+            adjacency_list[x] = []
+        if y not in adjacency_list:
+            adjacency_list[y] = []
+        adjacency_list[x].append(y)
+        adjacency_list[y].append(x)
 
     def convert_to_coordinates(self, cell):
         """This method converts cell indexes into their corresponding cell coordinates.
@@ -139,14 +147,15 @@ class Kruskals:
             return neighbor_cell
         return None
 
-    def generate(self):
+    def generate(self, adj_list, test_mode):
         """This method manages the main functionality of Kruskal's algorithm."""
         while self.walls_down < len(self.cells)-1:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-            chosen_cell = self.choose_cell()
+            if not test_mode:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+            chosen_cell = random.choice(self.cells)
             chosen_coordinates = self.convert_to_coordinates(chosen_cell)
             self.find_neighbors(chosen_coordinates[0], chosen_coordinates[1])
             chosen_neighbor = self.choose_neighbor(chosen_coordinates[0], chosen_coordinates[1])
@@ -156,6 +165,7 @@ class Kruskals:
                 if self.check_if_wall(chosen_cell, chosen_neighbor):
                     self.disjointset.union(representative_1, representative_2)
                     self.knock_down(chosen_coordinates[0], chosen_coordinates[1])
+                    self.add_edge(adj_list, chosen_cell, chosen_neighbor)
                     self.walls_down += 1
 
     def check_if_wall(self, current, neighbor):

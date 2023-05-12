@@ -20,7 +20,8 @@ class Call:
         self.kruskal.initialize_coordinates()
         self.kruskal.initialize_cells()
         self.kruskal.initialize_sets()
-        self.kruskal.generate()
+        adjacency_list = self.dfs.initialize_adjacency_list()
+        self.kruskal.generate(adjacency_list, False)
 
     def depth_first_search(self):
         """This method invokes the DFS algorithm."""
