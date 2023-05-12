@@ -2,8 +2,8 @@
 
 ## Unit tests
 
-The testing is done using unittest library. Unit tests are done to classes that contain application logic or algorithms.    
-Currently there are tests for DepthFirstSearch, DisjointSet and Kruskals classes.
+The testing is done using unittest library.     
+Unit tests are done to classes `Kruskals`, `DepthFirstSearch` and `DisjointSet`.
 
 Tests and coverage report can be executed with the following command.
 
@@ -19,7 +19,8 @@ poetry run coverage html
 ```
 Now the coverage report is found at htmlcov/index.html.    
 
-![Screenshot from 2023-04-30 14-26-27](https://user-images.githubusercontent.com/102039234/235350496-c9de311b-8ee0-4dd5-8611-87ab64ba55dc.png)
+![Screenshot from 2023-05-12 21-16-11](https://github.com/laurelcrelia/data-structures-lab/assets/102039234/9223dbba-ce0e-4442-950c-664445958afa)
+
 
 
 
