@@ -22,6 +22,7 @@ class DepthFirstSearch:
         self.cell_size = 40/(self.maze.grid_size/5)
 
         self.coordinates = []
+        self.solutions = 0
 
     def initialize_coordinates(self):
         """This method initializes coordinates of all existing cells."""
@@ -110,6 +111,9 @@ class DepthFirstSearch:
         current_coordinates = self.convert_to_coordinates(current)
 
         if chosen_neighbor:
+            if chosen_neighbor == (self.maze.grid_size-1, self.maze.grid_size-1):
+                self.solutions += 1
+
             neighbor_coordinates = self.convert_to_coordinates(chosen_neighbor)
 
             visited[current[0]][current[1]] = True

@@ -44,7 +44,13 @@ class TestDepthFirstSearch(unittest.TestCase):
         self.visited = self.dfs.initialize_visited()
         self.adjacency_list = self.dfs.initialize_adjacency_list()
 
-    def test_every_cell_is_visited(self):
+    def test_connectivity(self):
+        """Every time that DFS knocks down a wall between current and its neighbor, 
+        the neighbor is marked as visited. In other words every time we visit a cell, 
+        it becomes reachable. In this test we check that every cell is visited and is thus reachable and
+        at the same time the connectivity of the maze becomes also tested.
+        Connectivity means that if you start at any cell in the maze, 
+        you can reach all other cells from there."""
         self.dfs.generate(self.visited, self.adjacency_list, True)
 
         answer = ([[True for i in range(self.maze.grid_size)]for j in range(self.maze.grid_size)])
@@ -52,8 +58,8 @@ class TestDepthFirstSearch(unittest.TestCase):
         self.assertEqual(self.visited, answer)
 
     def test_no_cycles(self):
-        # If x is the amount of nodes, in undirected graph there needs to be exactly x-1 amount of edges, 
-        # for there to be no cycle.
+        """If x is the amount of nodes, in undirected graph there needs to be exactly x-1 amount of edges, 
+        for there to be no cycle."""
         self.dfs.generate(self.visited, self.adjacency_list, True)
 
         answer = self.maze.grid_size*self.maze.grid_size-1
@@ -65,4 +71,8 @@ class TestDepthFirstSearch(unittest.TestCase):
 
         self.assertEqual(count//2, answer)
 
+    def test_unique_solution(self):
+        self.dfs.generate(self.visited, self.adjacency_list, True)
+        one_solution = 1
 
+        self.assertEqual(self.dfs.solutions, one_solution)
