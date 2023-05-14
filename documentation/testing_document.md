@@ -4,6 +4,9 @@
 
 The testing is done using unittest library.     
 Unit tests are done to classes `Kruskals`, `DepthFirstSearch` and `DisjointSet`.
+        
+The tests for DepthFirstSearch and Kruskals emphasize the outcome of the mazes. 
+For example the requirements of perfect mazes such as "Maze should not contain cycles" and "There should be a unique solution path" are tested.
 
 Tests and coverage report can be executed with the following command.
 
