@@ -14,14 +14,16 @@ Project for Data Structures Lab course at the University of Helsinki.
 - Pytest
 - Git version control
 
+## 🔗 [Features](documentation/features.md)
 ## 🔗 [Instructions](documentation/instructions.md)
 
 ---
 
+## Required course documentation:
+
 ![GHA workflow badge](https://github.com/laurelcrelia/data-structures-lab/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/laurelcrelia/data-structures-lab/branch/main/graph/badge.svg?token=XSGKMVPU1C)](https://codecov.io/gh/laurelcrelia/data-structures-lab)
 
-### Documentation:
 - [Project specification](https://github.com/laurelcrelia/data-structures-lab/blob/main/documentation/project-specification.md)
 - [Testing document](https://github.com/laurelcrelia/data-structures-lab/blob/main/documentation/testing_document.md)
 - [Implementation document](https://github.com/laurelcrelia/data-structures-lab/blob/main/documentation/implementation_document.md) 
