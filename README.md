@@ -1,6 +1,8 @@
 # :jigsaw: Maze generator
 
-Project for Data Structures Lab course at the University of Helsinki.
+This is a project made for [Data Structures Lab course](https://tira.mooc.fi/kevat-2023/) (2023) at the University of Helsinki, which involves implementing and visualizing algorithms for maze generation using Python and the Pygame module. 
+
+The focus of the project is on the implementation and analysis of two algorithms that try to solve some problem. I chose the creation of mazes as the topic of my project and I chose Kruskal’s and Depth-First Search as the algorithms. The user interface is kept simple to emphasize the functionality and algorithmic processes behind the maze generation.
 
 ## :books: What I learned
 - implementing data structures and algorithms from literature and the "Data Structures and Algorithms" courses (TKT200011 and TKT200012)
@@ -11,6 +13,7 @@ Project for Data Structures Lab course at the University of Helsinki.
 
 #### Technologies
 - Python
+- Pygame
 - Pytest
 - Git version control
 
