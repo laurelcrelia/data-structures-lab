@@ -1,16 +1,19 @@
-## User guide
+## Installation instructions
 
-After cloning this repository into your computer install dependencies in project's root directory with command    
+1. Clone this repository into your computer
+
+2. Install dependencies in project's root directory with command    
 `poetry install`    
    
-Activate the virtual environment with command   
+3. Activate the virtual environment with command   
 `poetry shell`    
     
-Start the program with command    
-`python3 src/index.py`    
+4. Start the program with command    
+`python3 src/index.py`
+
+## User guide
     
-At the moment the main part of the program works like this:
-- After user has chosen a grid size for mazes, the program starts generating mazes one at a time.
+After user has chosen a grid size for mazes, the program starts generating mazes one at a time.
 Once the first algorithm (Kruskal's) is ready then the second one (Depht-first search) starts generating its maze.
 
 You can test the quality of the code with command   
